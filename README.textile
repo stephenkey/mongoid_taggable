@@ -1,24 +1,14 @@
 h1. Mongoid Taggable
 
+Updated for Mongoid 5 support.
+
 Mongoid Taggable provides some helpers to create taggable documents.
 
 h2. Installation
 
-You can install from rubygems:
+In your Gemfile:
 
-bc. gem install mongoid_taggable
-
-or in Gemfile:
-
-bc. gem 'mongoid_taggable'
-
-or as a Rails Plugin:
-
-bc. script/plugin install git://github.com/wilkerlucio/mongoid_taggable.git
-
-h2. Mongoid 2 vs Mongoid 3
-
-All gem versions less than 1.x only support Mongoid 2 while versions 1.x and greater support Mongoid 3.
+bc. gem 'mongoid_taggable', git: 'https://github.com/stephenkey/mongoid_taggable.git'
 
 h2. Basic Usage
 
@@ -86,6 +76,10 @@ Post.tags_with_weight # will retrieve:
 #   ['strip', 1],
 #   ['zip', 1]
 # ]
+
+p. Weighted tags with order and limit
+
+bc.. Post.tags_with_weight('asc', 10)
 
 p. The tags index is unaffected by default_scopes. If enabled, all tags will be indexed regardless of other attribute values.
 p. If you don't want to use this feature, it is good to disable it to improve performance:
