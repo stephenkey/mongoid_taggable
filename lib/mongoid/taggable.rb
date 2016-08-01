@@ -50,8 +50,14 @@ module Mongoid::Taggable
 
     # retrieve the list of tags with weight (i.e. count), this is useful for
     # creating tag clouds
-    def tags_with_weight
-      tags_index_collection.find.to_a.map{ |r| [r["_id"], r["value"]] }
+    def tags_with_weight(order=nil, limit=30)
+      if order == 'asc'
+        tags_index_collection.find.sort( { value: 1 } ).limit(limit).to_a.map{ |r| [r["_id"], r["value"]] }
+      elsif order == 'desc'
+        tags_index_collection.find.sort( { value: -1 } ).limit(limit).to_a.map{ |r| [r["_id"], r["value"]] }
+      else
+        tags_index_collection.find.limit(limit).to_a.map{ |r| [r["_id"], r["value"]] }
+      end
     end
 
     def disable_tags_index!
